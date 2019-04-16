@@ -3,3 +3,47 @@
   display: block;
   margin: 0 auto;
 }
+
+body {
+  margin: 0;
+  font-family: monospace;
+}
+
+.player{
+  text-align: center;
+  border: grey solid 1px;
+  padding: 1rem;
+  width: 10%;
+  height: 10rem;
+  display: inline-grid;
+  margin: 1rem 2rem;
+  box-shadow: 3px 4px #e04b52
+}
+
+#player-container {
+  margin: 2rem;
+  border: grey solid 1px;
+  display: inline-grid;
+  width: 60%
+}
+
+.card {
+  text-align: center;
+  border: grey solid 1px;
+  padding: 1rem;
+  width: 5rem;
+  height: 5rem;
+  display: inline-grid;
+  margin: 1rem 2rem;
+  box-shadow: 3px 4px #e04b52
+}
+
+ .player-avatar {
+  justify-self: center;
+  height: 4rem;
+  width: auto;
+}
+
+.spacer {
+  height: 40rem
+}

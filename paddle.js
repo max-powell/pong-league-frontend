@@ -17,11 +17,14 @@ class Paddle {
   }
 }
 
+
 const leftPaddle = new Paddle(20, 40)
 leftPaddle.collision = leftPaddle.y+leftPaddle.width
 
 const rightPaddle = new Paddle (canvas.width - 40, canvas.height/2 - 50)
 rightPaddle.collision = rightPaddle.x
+
+
 
 function checkRightPaddleCollision(){
 if (ball.x === rightPaddle.collision - ball.radius &&
@@ -52,6 +55,7 @@ document.addEventListener("keydown", keyDownHandler, false)
 document.addEventListener("keyup", keyUpHandler, false)
 
 function keyDownHandler(e){
+  e.preventDefault()
   if (e.key == "ArrowUp"){
     rightPaddle.upPressed = true
   } else if (e.key == "ArrowDown"){
