@@ -20,10 +20,10 @@ body {
 
 #header img {
   display: block;
-  margin-left: auto;
-  margin-right: auto;
   width: 50%;
+  margin: 0 auto;
 }
+
 
 .new-player-container {
   text-align: center;
@@ -82,8 +82,4 @@ body {
   justify-self: center;
   height: 4rem;
   width: auto;
-}
-
-.spacer {
-  height: 0rem;
 }
