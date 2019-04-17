@@ -59,9 +59,7 @@ function fillSelectedPlayer(player, playerEl) {
 }
 
 function init(){
-    // getAllPlayers().then(renderPlayers)
-    state.players = DATA
-    renderPlayers(state.players)
+    getAllPlayers().then(renderPlayers)
 }
 
 init()
