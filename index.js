@@ -3,6 +3,9 @@ const allPlayersUrl = "http://localhost:3000/players"
 const playerOne = document.getElementById("player-one")
 const playerTwo = document.getElementById("player-two")
 const selectionDivEl = document.querySelector('#selection-div')
+const newPlayerForm = document.getElementById("new-player-form")
+const newPlayerFormBtn = document.querySelector(".submit")
+
 
 const state = {
     players: [],
@@ -19,6 +22,16 @@ function getAllPlayers(){
     .then(resp => resp.json())
     .then(json => state.players = json)
 }
+
+function createPlayer(player){
+  return fetch(allPlayersUrl, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(player)
+  }).then(resp => resp.json())
+}
+
+
 function createGameStats(){
   fetch("http://localhost:3000/games", {
       method: 'POST',
@@ -27,6 +40,20 @@ function createGameStats(){
     }).then(resp => resp.json())
   }
 
+  newPlayerForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    createPlayer(formPlayer(event)).then(renderPlayer);
+  });
+
+  function formPlayer(event){
+    const playerName = event.target.querySelector("#input-name").value;
+    const playerImg = event.target.querySelector("#input-image").value;
+    event.target.reset();
+    return {
+      name: playerName,
+      image_url: playerImg
+    };
+  }
 
 
 function renderPlayer(player){
