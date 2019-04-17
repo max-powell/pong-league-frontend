@@ -24,7 +24,7 @@ const rightPaddle = new Paddle (canvas.width - 40, canvas.height/2 - 50)
 rightPaddle.collision = rightPaddle.x
 
 function checkRightPaddleCollision(){
-if (ball.x === rightPaddle.collision - ball.radius &&
+if (ball.x === rightPaddle.x - ball.radius &&
   ball.y > rightPaddle.y &&
   ball.y < rightPaddle.y + rightPaddle.height){
     ball.dx = -ball.dx
@@ -32,7 +32,7 @@ if (ball.x === rightPaddle.collision - ball.radius &&
 }
 
 function checkLeftPaddleCollision(){
-if (ball.x === leftPaddle.collision - ball.radius &&
+if (ball.x === leftPaddle.y + leftPaddle.width - ball.radius &&
   ball.y > leftPaddle.y &&
   ball.y < leftPaddle.y + leftPaddle.height){
     ball.dx = -ball.dx
