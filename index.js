@@ -3,6 +3,7 @@ const allPlayersUrl = "http://localhost:3000/players"
 const playerOne = document.getElementById("player-one")
 const playerTwo = document.getElementById("player-two")
 const selectionDivEl = document.querySelector('#selection-container')
+const formContainer = document.querySelector('.new-player-container')
 const newPlayerForm = document.getElementById("new-player-form")
 const newPlayerFormBtn = document.querySelector(".submit")
 
@@ -29,13 +30,15 @@ function createPlayer(player){
 }
 
 
-function createGameStats(){
-  fetch("http://localhost:3000/games", {
+function createGameStats(game){
+  return fetch("http://localhost:3000/games", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({winner_id, loser_id})
+      body: JSON.stringify(game)
     }).then(resp => resp.json())
   }
+
+
 
   newPlayerForm.addEventListener("submit", function(e) {
     e.preventDefault();
@@ -65,7 +68,7 @@ function renderPlayer(player){
         if (!state.leftPlayer) {
             state.leftPlayer = player
             fillSelectedPlayer(player, playerOne)
-        } else {
+        } else if (!state.rightPlayer) {
             state.rightPlayer = player
             fillSelectedPlayer(player, playerTwo)
             setTimeout(startGame, 1000)

@@ -78,6 +78,34 @@ body {
   box-shadow: 3px 4px #e04b52;
 }
 
+.card:active {
+  filter: grayscale(1);
+  outline: 2px solid yellow;
+  z-index: 99;
+  animation: flash 300ms linear;
+}
+
+@keyframes flash {
+	0% {
+		filter:brightness(100%);
+	}
+	20% {
+		filter:brightness(150%);
+	}
+	40% {
+		filter:brightness(100%);
+	}
+	60% {
+		filter:brightness(150%);
+	}
+	80% {
+		filter:brightness(100%);
+	}
+	100% {
+		filter:brightness(150%);
+	}
+}
+
 .player-avatar {
   justify-self: center;
   height: 4rem;
