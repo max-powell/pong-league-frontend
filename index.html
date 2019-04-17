@@ -1,23 +1,50 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
-    <title>Pong League</title>
-    <link rel="stylesheet" href="index.css">
-    <script defer type="text/javascript" src="sampleData.js"></script>
+    <meta charset="utf-8" />
+    <title>Pong Fighter</title>
+    <link rel="stylesheet" href="index.css" />
     <script defer type="text/javascript" src="index.js"></script>
     <script defer type="text/javascript" src="game.js"></script>
   </head>
   <body>
-      <div id='header'>
-          <img src="images/pong-fighter.png">
-      </div>
-      <div class="player-container" id="player-container">
-      </div>
-      <div id="selection-container">
-          <div class="player" id="player-one"></div>
-          <div class="vs" id="vs"></div>
-          <div class="player" id="player-two"></div>
-      </div>
+    <div id="header">
+      <img src="images/pong-fighter.png" />
+    </div>
+    <div class="new-player-container">
+      <form id="new-player-form">
+        <h3>New Player</h3>
+        <input
+          type="text"
+          id="input-name"
+          name="name"
+          value=""
+          placeholder="Enter your name..."
+          class="input-text"
+        />
+        <br />
+        <input
+          type="text"
+          id="input-image"
+          name="image"
+          value=""
+          placeholder="Enter an image URL..."
+          class="input-text"
+        />
+        <br />
+        <input
+          type="submit"
+          name="submit"
+          value="Create New Player"
+          class="submit"
+        />
+      </form>
+    </div>
+    <div class="player-container" id="player-container"></div>
+    <div id="selection-container">
+      <div class="player" id="player-one"></div>
+      <div class="vs" id="vs"></div>
+      <div class="player" id="player-two"></div>
+    </div>
   </body>
 </html>
