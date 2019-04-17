@@ -19,6 +19,15 @@ function getAllPlayers(){
     .then(resp => resp.json())
     .then(json => state.players = json)
 }
+function createGameStats(){
+  fetch("http://localhost:3000/games", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({winner_id, loser_id})
+    }).then(resp => resp.json())
+  }
+
+
 
 function renderPlayer(player){
     const playerCardEl = document.createElement('div')

@@ -6,7 +6,7 @@
 
 body {
   margin: 0;
-  font-family: monospace;
+  font-family: arial;
 }
 
 .player{
@@ -45,5 +45,5 @@ body {
 }
 
 .spacer {
-  height: 40rem
+  height: 0rem
 }
