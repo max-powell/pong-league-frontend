@@ -7,6 +7,8 @@ canvas.id = 'canvas'
 const ctx = canvas.getContext('2d')
 
 const gameState = {
+  leftPlayer: DATA[0],
+  rightPlayer: DATA[1],
   leftScore: 0,
   rightScore: 0
 }
@@ -18,18 +20,34 @@ function renderCanvas () {
   body.append(canvas)
 }
 
+function renderPlayerContainerEL (playerOne, playerTwo) {
+  playerContainerEl = document.createElement('div')
+  playerContainerEl.id='selection-container'
+  playerContainerEl.innerHTML = `
+  <div class="player" id="player-one">
+    <img src='${playerOne.image_url}' class='player-avatar'>
+    <div>${playerOne.name}</div>
+    <div id='leftScore'>0</div>
+  </div>
+  <div class="vs" id="vs"></div>
+  <div class="player" id="player-two">
+    <img src='${playerTwo.image_url}' class='player-avatar'>
+    <div>${playerTwo.name}</div>
+    <div id='rightScore'>0</div>
+  </div>
+  `
+  body.append(playerContainerEl)
+}
+
 function createScore () {
   scoreEl = document.createElement('div')
   scoreEl.id = 'score'
   scoreEl.innerText = '0 - 0'
 }
 
-function createPlayerCard (arguments) {
-  // body...
-}
-
-function renderPlayerBar () {
-  playerBarEl = document.createElement('div')
+function renderGame () {
+  renderCanvas()
+  renderPlayerContainerEL(gameState.leftPlayer, gameState.rightPlayer)
 }
 
 // OBJECTS
@@ -112,20 +130,24 @@ function keyUpHandler(e){
 // COLLISION DETECTION
 
 function checkWallCollision () {
+  leftScore = document.querySelector('#leftScore')
+  rightScore= document.querySelector('#rightScore')
   if (ball.y + ball.dy < ball.radius || ball.y + ball.dy > canvas.height - ball.radius) {
     ball.dy = -ball.dy
   }
   if (ball.x + ball.dx < ball.radius) {
-    gameState.leftScore ++
+    gameState.rightScore ++
+    rightScore.innerText = gameState.rightScore
     if (win()) {
-      endGame()
+      endGame(gameState.rightPlayer, gameState.leftPlayer)
     } else {
       ballReset()
     }
   } else if (ball.x + ball.dx > canvas.width - ball.radius) {
-    gameState.rightScore ++
+    gameState.leftScore ++
+    leftScore.innerText = gameState.leftScore
     if (win()) {
-      endGame()
+      endGame(gameState.leftPlayer, gameState.rightPlayer)
     } else {
       ballReset()
     }
@@ -154,9 +176,11 @@ function win () {
   return gameState.leftScore == 5 || gameState.rightScore == 5
 }
 
-function endGame () {
+function endGame (winner, loser) {
   clearInterval(play)
   clearInterval(moveBall)
+  alert(`${winner.name} wins!`)
+  location.reload()
 }
 
 // DRAW
@@ -201,16 +225,16 @@ function draw () {
 // INITIATE GAME
 
 function startBall() {
-  moveBall = setInterval(ball.move, 10)
+  moveBall = setInterval(ball.move, 5)
 }
 
 function init () {
   play = setInterval(draw, 10)
-  startBall()
+  setTimeout(startBall, 1000)
 }
 
 function setupGame () {
-  renderCanvas()
+  renderGame()
   draw()
   init()
 }
