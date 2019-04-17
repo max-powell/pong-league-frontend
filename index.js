@@ -1,96 +1,74 @@
-const canvas = document.querySelector('#canvas')
-const ctx = canvas.getContext('2d')
-let play
-let ballMove
+const playerContainer = document.querySelector("#player-container")
+const allPlayersUrl = "http://localhost:3000/players"
+const playerOne = document.getElementById("player-one")
+const playerTwo = document.getElementById("player-two")
+const selectionDivEl = document.querySelector('#selection-div')
 
-const gameState = {
-  leftScore: 0,
-  rightScore: 0
+const state = {
+    players: [],
+    leftPlayer: null,
+    rightPlayer: null,
+    leftScore: 0,
+    rightScore: 0
 }
 
-const ball = {
-  x: canvas.width/2,
-  y: canvas.height/2,
-  radius: 10,
-  dx: 2,
-  dy: -2,
-  move: () => {
-    ball.x += ball.dx
-    ball.y += ball.dy
+
+
+function getAllPlayers(){
+    return fetch(allPlayersUrl)
+    .then(resp => resp.json())
+    .then(json => state.players = json)
+}
+function createGameStats(){
+  fetch("http://localhost:3000/games", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({winner_id, loser_id})
+    }).then(resp => resp.json())
   }
+
+
+
+function renderPlayer(player){
+    const playerCardEl = document.createElement('div')
+    playerCardEl.classList.add('card')
+    playerCardEl.innerHTML = `
+    <img src= "${player.image_url}" class="player-avatar">
+    <p>${player.name}<p>
+    `
+    playerContainer.appendChild(playerCardEl)
+
+    playerCardEl.addEventListener('click', (e) =>{
+        if (!state.leftPlayer) {
+            state.leftPlayer = player
+            fillSelectedPlayer(player, playerOne)
+        } else {
+            state.rightPlayer = player
+            fillSelectedPlayer(player, playerTwo)
+            setTimeout(startGame, 1000)
+        }
+
+    }, {once: true})
 }
 
-function checkWallCollision () {
-  if (ball.y + ball.dy < ball.radius || ball.y + ball.dy > canvas.height - ball.radius) {
-    ball.dy = -ball.dy
-  }
-  if (ball.x + ball.dx < ball.radius) {
-    gameState.leftScore ++
-    if (win()) {
-      endGame()
-    } else {
-      ballReset()
-    }
-  } else if (ball.x + ball.dx > canvas.width - ball.radius) {
-    gameState.rightScore ++
-    if (win()) {
-      endGame()
-    } else {
-      ballReset()
-    }
-  }
+function renderPlayers(players){
+  state.players.forEach(renderPlayer)
 }
 
-function win () {
-  return gameState.leftScore == 5 || gameState.rightScore == 5
+function fillSelectedPlayer(player, playerEl) {
+  playerEl.innerHTML = `
+  <img src= "${player.image_url}" class="player-avatar">
+  <p>${player.name}<p>
+  `
 }
 
-function endGame () {
-  clearInterval(play)
-  clearInterval(ballMove)
+function startGame() {
+    window.scrollTo(0,1050)
+    startPlay()
+}
+ 
+function init(){
+    getAllPlayers().then(renderPlayers)
 }
 
-function drawPaddle (paddle) {
-  ctx.beginPath()
-  ctx.fillStyle = 'white'
-  ctx.fillRect(paddle.x, paddle.y, 20, 100)
-  ctx.closePath()
-  movePaddle(paddle)
-}
-
-function drawBall () {
-  ctx.beginPath()
-  ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI*2, false)
-  ctx.fillStyle = 'white'
-  ctx.fill()
-  ctx.closePath()
-}
-
-function draw () {
-  ctx.clearRect(0, 0, canvas.width, canvas.height)
-  drawPaddle(leftPaddle)
-  drawPaddle(rightPaddle)
-  drawBall()
-  checkWallCollision()
-  checkRightPaddleCollision()
-  checkLeftPaddleCollision()
-}
-
-function ballReset () {
-  ball.x = canvas.width/2,
-  ball.y = canvas.height/2
-  clearInterval(ballMove)
-  draw()
-  setTimeout(startBall, 1000)
-}
-
-function startBall() {
-  ballMove = setInterval(ball.move, 10)
-}
-
-function startPlay () {
-  play = setInterval(draw, 10)
-  startBall()
-}
-
-startPlay()
+init()
