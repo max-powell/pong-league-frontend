@@ -12,8 +12,6 @@ const state = {
     rightScore: 0
 }
 
-
-
 function getAllPlayers(){
     return fetch(allPlayersUrl)
     .then(resp => resp.json())
@@ -26,8 +24,6 @@ function createGameStats(){
       body: JSON.stringify({winner_id, loser_id})
     }).then(resp => resp.json())
   }
-
-
 
 function renderPlayer(player){
     const playerCardEl = document.createElement('div')
@@ -62,13 +58,10 @@ function fillSelectedPlayer(player, playerEl) {
   `
 }
 
-function startGame() {
-    window.scrollTo(0,1050)
-    startPlay()
-}
- 
 function init(){
-    getAllPlayers().then(renderPlayers)
+    // getAllPlayers().then(renderPlayers)
+    state.players = DATA
+    renderPlayers(state.players)
 }
 
 init()
