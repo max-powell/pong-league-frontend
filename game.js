@@ -1,5 +1,4 @@
 const body = document.querySelector('body')
-const selectionContainer = document.querySelector('#selection-container');
 
 const canvas = document.createElement('canvas')
 canvas.height = '500'
@@ -10,7 +9,8 @@ const ctx = canvas.getContext('2d')
 // RENDER PAGE
 
 function renderCanvas () {
-  selectionContainer.remove()
+  playerContainer.remove()
+  selectionDivEl.remove()
   body.append(canvas)
 }
 
@@ -222,7 +222,7 @@ function startBall() {
   moveBall = setInterval(ball.move, 5)
 }
 
-function init () {
+function begin () {
   play = setInterval(draw, 10)
   setTimeout(startBall, 1000)
 }
@@ -230,5 +230,5 @@ function init () {
 function startGame () {
   renderGame()
   draw()
-  init()
+  begin()
 }

@@ -2,7 +2,7 @@ const playerContainer = document.querySelector("#player-container")
 const allPlayersUrl = "http://localhost:3000/players"
 const playerOne = document.getElementById("player-one")
 const playerTwo = document.getElementById("player-two")
-const selectionDivEl = document.querySelector('#selection-div')
+const selectionDivEl = document.querySelector('#selection-container')
 
 const state = {
     players: [],
