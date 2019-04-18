@@ -89,12 +89,37 @@ function renderPlayer(player) {
   );
   const rowEl = document.createElement("tr");
   rowEl.innerHTML = `
-    <td>${rankingTableEl.childElementCount}</td>
+    <td>${state.players.findIndex(p => p == player) + 1}</td>
     <td>${player.name}</td>
     <td>${player.beaten.length}</td>
     <td>${player.lost_to.length}</td>
+    <td></td>
     `;
-    rankingTableEl.append(rowEl)
+  const showRecordBtn = document.createElement('button')
+  showRecordBtn.innerText = '▼'
+  rowEl.lastElementChild.appendChild(showRecordBtn)
+
+  rankingTableEl.append(rowEl)
+
+  const recordRowEl = document.createElement('tr')
+  recordRowEl.classList.add('hidden')
+  recordRowEl.innerHTML = `
+  <td colspan='2'>
+    <p>W vs</p>
+    ${player.beaten.map(p => '<p>' + p + '</p>').join('')}
+  </td>
+  <td colspan='2'>
+    <p>L vs</p>
+    ${player.lost_to.map(p => '<p>' + p + '</p>').join('')}
+  </td>
+  `
+  rankingTableEl.append(recordRowEl)
+
+  showRecordBtn.addEventListener('click', () => {
+    toggle = {'▼': '▲', '▲': '▼'}
+    recordRowEl.classList.toggle('hidden')
+    showRecordBtn.innerText = toggle[showRecordBtn.innerText]
+  })
 }
 
 function renderPlayers(players) {
