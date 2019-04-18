@@ -12,6 +12,7 @@ function renderCanvas() {
   formContainer.remove();
   playerContainer.remove();
   selectionDivEl.remove();
+  rankingTableEl.remove();
   body.append(canvas);
 }
 
