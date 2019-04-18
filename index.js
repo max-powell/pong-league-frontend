@@ -1,12 +1,14 @@
-const playerContainer = document.querySelector("#player-container");
+const playerContainer = document.querySelector(".player-container");
 const allPlayersUrl = "http://localhost:3000/players";
 const playerOne = document.getElementById("player-one");
 const playerTwo = document.getElementById("player-two");
-const selectionDivEl = document.querySelector("#selection-container");
+const selectionDivEl = document.querySelector(".selection-container");
 const formContainer = document.querySelector(".new-player-container");
 const newPlayerForm = document.getElementById("new-player-form");
 const newPlayerFormBtn = document.querySelector(".submit");
 const rankingTableEl = document.querySelector("#ranking-table");
+const rankingTableContainer = document.querySelector('#ranking-table-container')
+const leaderboardBtn = document.querySelector("#leaderboard-btn")
 
 const state = {
   players: [],
@@ -37,6 +39,15 @@ function createGameStats(game) {
     body: JSON.stringify(game)
   }).then(resp => resp.json());
 }
+
+leaderboardBtn.addEventListener('click', () => {
+  toggle = {'Show Leaderboard': 'Show Player Select', 'Show Player Select': 'Show Leaderboard'}
+  leaderboardBtn.innerText = toggle[leaderboardBtn.innerText]
+  
+  playerContainer.classList.toggle('hidden')
+  selectionDivEl.classList.toggle('hidden')
+  rankingTableContainer.classList.toggle('hidden')
+})
 
 newPlayerForm.addEventListener("submit", function(e) {
   e.preventDefault();
