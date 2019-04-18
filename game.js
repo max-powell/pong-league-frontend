@@ -61,6 +61,11 @@ class Ball {
     ball.x += ball.dx;
     ball.y += ball.dy;
   }
+
+  speedUp() {
+    this.dx *= 1.3
+    this.dy *= 1.3
+  }
 }
 
 class Paddle {
@@ -155,21 +160,24 @@ function checkWallCollision() {
 
 function checkRightPaddleCollision() {
   if (
-    ball.x === rightPaddle.x - ball.radius &&
+    ball.x + ball.dx > rightPaddle.x - ball.radius &&
     ball.y > rightPaddle.y &&
     ball.y < rightPaddle.y + rightPaddle.height
   ) {
     ball.dx = -ball.dx;
+    state.rally += 1
+    if (state.rally % 5 == 0) {ball.speedUp()}
   }
 }
 
 function checkLeftPaddleCollision() {
   if (
-    ball.x === leftPaddle.x + leftPaddle.width + ball.radius &&
+    ball.x + ball.dx < leftPaddle.x + leftPaddle.width + ball.radius &&
     ball.y > leftPaddle.y &&
     ball.y < leftPaddle.y + leftPaddle.height
   ) {
     ball.dx = -ball.dx;
+    state.rally += 1
   }
 }
 
@@ -199,6 +207,8 @@ function drawBall() {
 
 function ballReset() {
   (ball.x = canvas.width / 2), (ball.y = canvas.height / 2);
+  (ball.dx = 2), (ball.dy = 2)
+  state.rally(0)
   clearInterval(moveBall);
   draw();
   setTimeout(startBall, 1000);

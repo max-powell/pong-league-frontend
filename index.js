@@ -15,7 +15,8 @@ const state = {
   leftPlayer: null,
   rightPlayer: null,
   leftScore: 0,
-  rightScore: 0
+  rightScore: 0,
+  rally: 0
 };
 
 function getAllPlayers() {
