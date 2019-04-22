@@ -36,7 +36,7 @@ body {
 
 #header img {
   display: block;
-  width: 50%;
+  height: 7rem;
   margin: 0 auto;
 }
 
@@ -181,12 +181,11 @@ body {
 
 #ranking-table td,
 th {
-  padding: 8px;
+  vertical-align: top;  padding: 8px;
 }
 
 #ranking-table td {
   text-align: center;
-  vertical-align: top
 }
 
 #ranking-table {
